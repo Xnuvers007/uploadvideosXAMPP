@@ -30,6 +30,10 @@ CREATE TABLE videos (
 );
 ```
 
+Jika kalian malas untuk membuat databases stream beserta tabelnya, saya sudah Mengekspor tabel dari basis data "stream" yang saya buat
+
+[ada disini](https://raw.githubusercontent.com/Xnuvers007/uploadvideosXAMPP/master/stream.sql)[, jika kalian ingin mendownload repositori ini, klik ini](https://github.com/Xnuvers007/uploadvideosXAMPP/archive/refs/heads/master.zip)
+
 # English
 - First of all, make sure that the MySQL server is already running on XAMPP.
 - Open a command prompt or terminal, then run the following command to enter the MySQL shell:
@@ -48,6 +52,11 @@ CREATE TABLE videos (
     expiration DATE NOT NULL
 );
 ```
+
+If you are too lazy to create a stream database with tables, I have exported the tables from the "stream" database that I created.
+
+[in here](https://raw.githubusercontent.com/Xnuvers007/uploadvideosXAMPP/master/stream.sql)[, if you want to download this repository, click this](https://github.com/Xnuvers007/uploadvideosXAMPP/archive/refs/heads/master.zip)
+
 
 ### CATATAN
 CATATAN: UNTUK MENJALAKANNYA, DOWNLOAD REPOSITORY INI DAN MASUKAN KE DALAM FOLDER/LOKASI ```C:\xampp\htdocs\```
