@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
       $fileName = time() . '_' . $_FILES['video']['name'];
 
       // Menentukan path untuk menyimpan video
-      $uploadPath = 'C:\xampp\tmp/' . $fileName;
+      $uploadPath = 'output/' . $fileName;
 
       // Pindahkan file video yang diupload ke folder uploads
       move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath);
@@ -27,6 +27,7 @@ if (isset($_POST['submit'])) {
       mysqli_close($conn);
 
       echo "Video berhasil diunggah dan akan dihapus dalam 7 hari.";
+      echo "Video ada di: " . $uploadPath;
     } else {
       echo "Ukuran file video melebihi maximum file size.";
     }
