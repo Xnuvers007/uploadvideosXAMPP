@@ -32,7 +32,9 @@ CREATE TABLE videos (
 
 Jika kalian malas untuk membuat databases stream beserta tabelnya, saya sudah Mengekspor tabel dari basis data "stream" yang saya buat
 
-[ada disini](https://raw.githubusercontent.com/Xnuvers007/uploadvideosXAMPP/master/stream.sql)[, jika kalian ingin mendownload repositori ini, klik ini](https://github.com/Xnuvers007/uploadvideosXAMPP/archive/refs/heads/master.zip)
+[ada disini](https://raw.githubusercontent.com/Xnuvers007/uploadvideosXAMPP/master/stream.sql)
+
+[jika kalian ingin mendownload repositori ini, klik ini](https://github.com/Xnuvers007/uploadvideosXAMPP/archive/refs/heads/master.zip)
 
 # English
 - First of all, make sure that the MySQL server is already running on XAMPP.
@@ -55,7 +57,9 @@ CREATE TABLE videos (
 
 If you are too lazy to create a stream database with tables, I have exported the tables from the "stream" database that I created.
 
-[in here](https://raw.githubusercontent.com/Xnuvers007/uploadvideosXAMPP/master/stream.sql)[, if you want to download this repository, click this](https://github.com/Xnuvers007/uploadvideosXAMPP/archive/refs/heads/master.zip)
+[in here](https://raw.githubusercontent.com/Xnuvers007/uploadvideosXAMPP/master/stream.sql)
+
+[if you want to download this repository, click this](https://github.com/Xnuvers007/uploadvideosXAMPP/archive/refs/heads/master.zip)
 
 
 ### CATATAN
