@@ -1,4 +1,7 @@
 <?php
+#
+include "connection.php";
+# var_dump($conn);
 // Set maximum file size untuk 200MB
 $maxFileSize = 200 * 1024 * 1024;
 
@@ -6,11 +9,16 @@ $maxFileSize = 200 * 1024 * 1024;
 $expiration = time() + (7 * 24 * 60 * 60);
 
 // Cek apakah user sudah melakukan submit form
+
 if (isset($_POST['submit'])) {
   // Cek apakah ada file yang diupload
+  # var_dump($conn);
+  
   if (isset($_FILES['video']) && $_FILES['video']['error'] == 0) {
     // Cek apakah ukuran file tidak melebihi maximum file size
+    
     if ($_FILES['video']['size'] <= $maxFileSize) {
+      
       // Membuat nama file unik dengan menggabungkan waktu saat ini dan nama file
       $fileName = time() . '_' . $_FILES['video']['name'];
 
@@ -21,13 +29,16 @@ if (isset($_POST['submit'])) {
       move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath);
 
       // Tambahkan data video ke database
-      $conn = mysqli_connect("localhost", "root", "", "stream");
+      # $conn = mysqli_connect("localhost:8080", "root", "root", "stream");
       $query = "INSERT INTO videos (name, path, expiration) VALUES ('$fileName', '$uploadPath', '$expiration')";
       mysqli_query($conn, $query);
       mysqli_close($conn);
+      
+      # var_dump($conn);
 
       echo "Video berhasil diunggah dan akan dihapus dalam 7 hari.";
       echo "Video ada di: " . $uploadPath;
+      
     } else {
       echo "Ukuran file video melebihi maximum file size.";
     }
