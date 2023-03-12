@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload dan Streaming Video</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Upload dan Streaming Video</h1>
+		<form method="post" action="upload.php" enctype="multipart/form-data">
+			<input type="file" name="video" required>
+			<input type="submit" name="upload" value="Upload">
+		</form>
+		<div id="video-player">
+			<video id="video" controls></video>
+		</div>
+	</div>
+	<script src="script.js"></script>
+</body>
+</html>

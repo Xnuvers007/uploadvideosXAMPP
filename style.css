@@ -1,0 +1,28 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	max-width: 800px;
+	margin: 50px auto;
+	text-align: center;
+}
+
+h1 {
+	margin-bottom: 30px;
+}
+
+form {
+	margin-bottom: 30px;
+}
+
+input[type="file"] {
+	margin-right: 10px;
+}
+
+#video-player {
+	margin-top: 30px;
+	display: none;
+}
