@@ -1,6 +1,9 @@
 <?php
+
+include "connection.php";
+
 // Connect ke database
-$conn = mysqli_connect("localhost", "root", "", "stream");
+# $conn = mysqli_connect("localhost", "root", "", "stream");
 
 // Ambil semua data video dari database
 $query = "SELECT * FROM videos";
