@@ -30,16 +30,27 @@ if (isset($_POST['submit'])) {
       // Menentukan path untuk menyimpan video
       // $fileName = basename($_FILES['video']['name']);
       // give name file with time
-      $fileName = time(). '_'. $_FILES['video']['name'];
+      // Sanitize and validate file name
+      $fileName = filter_var(basename($_FILES['video']['name']), FILTER_SANITIZE_STRING);
+      $fileName = preg_replace('/\s+/', '_', $fileName); // replace whitespace with underscore
+      if (empty($fileName)) {
+        die("File name is invalid");
+      }
+
+      // Generate unique file name to prevent path traversal
+      $fileName = time(). '_'. $fileName;
+
+      // Set file paths
       $uploadPath = __DIR__ . '/output/' . $fileName;
       $streamPath = __DIR__ . '/output/streaming/' . $fileName;
 
-      // Pindahkan file video yang diupload ke folder uploads
+      // Move uploaded file to output directory
       if (move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath)) {
 
-        // Copy file video ke direktori streaming
+        // Copy file to streaming directory
         if (copy($uploadPath, $streamPath)) {
-          echo "File berhasil diupload: <a href='output/$fileName'>Download</a> | <a href='output/stream.php?file=$fileName' target='_blank'>Streaming</a>";
+          // Output success message with sanitized file name
+          echo "File berhasil diupload: <a href='output/" . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8') . "'>Download</a> | <a href='output/stream.php?file=" . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8') . "' target='_blank'>Streaming</a>";
         } else {
           echo "Gagal membuat file streaming";
         }
@@ -47,6 +58,24 @@ if (isset($_POST['submit'])) {
       } else {
         echo "Gagal mengupload file";
       }
+
+      // $fileName = time(). '_'. $_FILES['video']['name'];
+      // $uploadPath = __DIR__ . '/output/' . $fileName;
+      // $streamPath = __DIR__ . '/output/streaming/' . $fileName;
+
+      // // Pindahkan file video yang diupload ke folder uploads
+      // if (move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath)) {
+
+      //   // Copy file video ke direktori streaming
+      //   if (copy($uploadPath, $streamPath)) {
+      //     echo "File berhasil diupload: <a href='output/$fileName'>Download</a> | <a href='output/stream.php?file=$fileName' target='_blank'>Streaming</a>";
+      //   } else {
+      //     echo "Gagal membuat file streaming";
+      //   }
+
+      // } else {
+      //   echo "Gagal mengupload file";
+      // }
 
 
 //       // Menentukan path untuk menyimpan video
