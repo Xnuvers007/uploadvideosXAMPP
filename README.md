@@ -54,6 +54,31 @@ $conn = mysqli_connect("127.0.0.1", "root", "root", "stream"); # IP, Username, P
 
 - 7. add Stream and download videos from user want [check this](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L41-L45)
 
+- 8. add [index.php](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/output/index.php) in output to patch directory listing
+
+- 9. fix bug Xss
+```
+if (copy($uploadPath, $streamPath)) {
+          echo "File berhasil diupload: <a href='output/$fileName'>Download</a> | <a href='output/stream.php?file=$fileName' target='_blank'>Streaming</a>";
+```
+[fix bug here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L53)
+
+- 10. fix Bug path traversal
+```
+      if (move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath)) {
+```
+```
+        if (copy($uploadPath, $streamPath)) {
+```
+[fix bug here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L34-L38)
+
+- 11. Fix Bug Xss
+```
+<body>
+  <video controls autoplay>
+    <source src="<?php echo 'streaming/' . $_GET['file']; ?>" type="video/mp4">
+```
+[Fix Bug in here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/output/stream.php#L20-L21)
 
 # Upload Video With XAMPP, Mysql, HTML & PHP
 how to upload and stream video using xampp and mysql
