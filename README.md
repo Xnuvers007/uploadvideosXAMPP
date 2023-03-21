@@ -10,7 +10,7 @@ CONTENTS:
 
 # Update
 
-11:45 PM (Indonesia)
+1:15 AM 03/22/2023 (Indonesia)
 - 1. Fix bug SQLI
 ```   
       // Tambahkan data video ke database
@@ -18,7 +18,7 @@ CONTENTS:
       $query = "INSERT INTO videos (name, path, expiration) VALUES ('$fileName', '$uploadPath', '$expiration')";
       mysqli_query($conn, $query);
 ```
-[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L87-L93)
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L117-L122)
 
 - 2. Fix Bug XSS
 ```     
@@ -27,7 +27,7 @@ CONTENTS:
       echo "Video berhasil diunggah dan akan dihapus dalam 7 hari.";
       echo "Video ada di: " . $uploadPath;
 ```
-[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L98)
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L127)
 
 - 3. Fix Bug Path Traversal
 ```
@@ -37,7 +37,7 @@ CONTENTS:
       // Pindahkan file video yang diupload ke folder uploads
       move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath);
 ```
-[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L25-L50)
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L34-L60)
 
 - 4. Fix Bug Use of Hardcoded Credentials
 ```
