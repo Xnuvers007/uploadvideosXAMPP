@@ -1,11 +1,59 @@
 CONTENTS:
 
 - [intro](https://github.com/Xnuvers007/uploadvideosXAMPP#upload-video-with-xampp-mysql-html--php)
+- [update](https://github.com/Xnuvers007/uploadvideosXAMPP#update)
 - [Indonesia](https://github.com/Xnuvers007/uploadvideosXAMPP#indonesia)
 - [English](https://github.com/Xnuvers007/uploadvideosXAMPP#english)
 - [Catatan](https://github.com/Xnuvers007/uploadvideosXAMPP#catatan)
 - [Notes](https://github.com/Xnuvers007/uploadvideosXAMPP#notes)
 - [Images/Gambar](https://github.com/Xnuvers007/uploadvideosXAMPP#images--gambar)
+
+# Update
+
+11:45 PM (Indonesia)
+- 1. Fix bug SQLI
+```   
+      // Tambahkan data video ke database
+      # $conn = mysqli_connect("localhost:8080", "root", "root", "stream");
+      $query = "INSERT INTO videos (name, path, expiration) VALUES ('$fileName', '$uploadPath', '$expiration')";
+      mysqli_query($conn, $query);
+```
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L87-L93)
+
+- 2. Fix Bug XSS
+```     
+      # var_dump($conn);
+
+      echo "Video berhasil diunggah dan akan dihapus dalam 7 hari.";
+      echo "Video ada di: " . $uploadPath;
+```
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L98)
+
+- 3. Fix Bug Path Traversal
+```
+      // Menentukan path untuk menyimpan video
+      $uploadPath = 'output/' . $fileName;
+
+      // Pindahkan file video yang diupload ke folder uploads
+      move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath);
+```
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L25-L50)
+
+- 4. Fix Bug Use of Hardcoded Credentials
+```
+<?php
+
+$conn = mysqli_connect("127.0.0.1", "root", "root", "stream"); # IP, Username, Password, Databases
+?>
+```
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/connection.php#L7-L13)
+
+- 5. add file [config.php](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/config.php)
+
+- 6. add file [stream.php](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/output/stream.php) for streaming videos
+
+- 7. add Stream and download videos from user want [check this](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L41-L45)
+
 
 # Upload Video With XAMPP, Mysql, HTML & PHP
 how to upload and stream video using xampp and mysql
@@ -90,11 +138,15 @@ Oh yes, for this XAMPP username is root and password is blank
 
 ![gambar](https://user-images.githubusercontent.com/62522733/224536067-f294ce43-5a9a-4ae4-aaf2-8fe5f93990e9.png)
 
-![gambar](https://user-images.githubusercontent.com/62522733/224536150-a6958393-6d72-4933-b7ff-690cbe9bb936.png)
+![gambar](https://user-images.githubusercontent.com/62522733/226693384-9e75e5bc-8e48-405b-b6a0-65fb9db9deeb.png)
 
-![gambar](https://user-images.githubusercontent.com/62522733/224536162-ebe57d4d-6aba-4813-9f95-f799fcd19c09.png)
+![gambar](https://user-images.githubusercontent.com/62522733/226693477-53568cf4-0bb0-45e0-b0ab-1b06114267a1.png)
 
-![gambar](https://user-images.githubusercontent.com/62522733/224536184-0d01b3de-d093-49a7-82e4-5c210feefa62.png)
+<h1> If User Choice Download </h1>
 
-![gambar](https://user-images.githubusercontent.com/62522733/224536209-73ed5246-e70f-4d2a-9163-e871da14b910.png)
+![gambar](https://user-images.githubusercontent.com/62522733/226693643-3692d264-0c8a-4636-aac7-e790644f5139.png)
+
+<h1> if user choice streaming </h1>
+
+![gambar](https://user-images.githubusercontent.com/62522733/226693803-d0091284-2bb4-4421-9b07-b887a49d18ed.png)
 
