@@ -17,7 +17,8 @@
 </head>
 <body>
   <video controls autoplay>
-    <source src="<?php echo 'streaming/' . $_GET['file']; ?>" type="video/mp4">
+    <?php $file = filter_var($_GET['file'], FILTER_SANITIZE_STRING); ?>
+    <source src="<?php echo 'streaming/' . $file; ?>" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <script>
