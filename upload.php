@@ -20,24 +20,82 @@ if (isset($_POST['submit'])) {
     if ($_FILES['video']['size'] <= $maxFileSize) {
       
       // Membuat nama file unik dengan menggabungkan waktu saat ini dan nama file
-      $fileName = time() . '_' . $_FILES['video']['name'];
+      // $fileName = time() . '_' . $_FILES['video']['name'];
+
+      // Membuat direktori streaming jika belum ada
+      if (!is_dir('output/streaming')) {
+        mkdir('output/streaming', 0777, true);
+      }
 
       // Menentukan path untuk menyimpan video
-      $uploadPath = 'output/' . $fileName;
+      // $fileName = basename($_FILES['video']['name']);
+      // give name file with time
+      $fileName = time(). '_'. $_FILES['video']['name'];
+      $uploadPath = __DIR__ . '/output/' . $fileName;
+      $streamPath = __DIR__ . '/output/streaming/' . $fileName;
 
       // Pindahkan file video yang diupload ke folder uploads
-      move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath);
+      if (move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath)) {
+
+        // Copy file video ke direktori streaming
+        if (copy($uploadPath, $streamPath)) {
+          echo "File berhasil diupload: <a href='output/$fileName'>Download</a> | <a href='output/stream.php?file=$fileName' target='_blank'>Streaming</a>";
+        } else {
+          echo "Gagal membuat file streaming";
+        }
+
+      } else {
+        echo "Gagal mengupload file";
+      }
+
+
+//       // Menentukan path untuk menyimpan video
+//       $uploadPath = 'output/' . basename($_FILES['video']['name']);
+
+//       // Validasi path upload
+//       if (!preg_match('/^(output\/[\w.-]+)$/', $uploadPath)) {
+//           die('Invalid upload path');
+//       }
+
+//       // Pindahkan file video yang diupload ke folder uploads
+//       if (move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath)) {
+//           // file berhasil diupload
+//           header('Content-Type: application/octet-stream');
+//           header('Content-Description: File Transfer');
+//           header('Content-Disposition: attachment; filename="' . basename($uploadPath) . '"');
+//           header('Content-Transfer-Encoding: binary');
+//           header('Expires: 0');
+//           header('Cache-Control: must-revalidate');
+//           header('Pragma: public');
+//           header('Content-Length: ' . filesize($uploadPath));
+//           ob_clean();
+//           flush();
+//           readfile($uploadPath);
+//           exit;
+//       } else {
+//           // file gagal diupload
+//           header('Location: error.php');
+//           exit;
+// }
+
+      // // Menentukan path untuk menyimpan video
+      // $uploadPath = 'output/' . $fileName;
+
+      // // Pindahkan file video yang diupload ke folder uploads
+      // move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath);
 
       // Tambahkan data video ke database
-      # $conn = mysqli_connect("localhost:8080", "root", "root", "stream");
-      $query = "INSERT INTO videos (name, path, expiration) VALUES ('$fileName', '$uploadPath', '$expiration')";
-      mysqli_query($conn, $query);
+      $query = mysqli_prepare($conn, "INSERT INTO videos (name, path, expiration) VALUES (?, ?, ?)");
+      mysqli_stmt_bind_param($query, "sss", $fileName, $uploadPath, $expiration);
+      mysqli_stmt_execute($query);
+      // mysqli_query($conn, $query);
+      
       mysqli_close($conn);
       
       # var_dump($conn);
 
       echo "Video berhasil diunggah dan akan dihapus dalam 7 hari.";
-      echo "Video ada di: " . $uploadPath;
+      echo "Video ada di: " . htmlspecialchars($uploadPath, ENT_QUOTES, 'UTF-8');
       
     } else {
       echo "Ukuran file video melebihi maximum file size.";
