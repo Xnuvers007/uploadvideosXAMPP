@@ -5,6 +5,9 @@ include "connection.php";
 // Connect ke database
 # $conn = mysqli_connect("localhost", "root", "", "stream");
 
+// Define the allowed directory for video files
+$allowed_dir = "output/";
+
 // Ambil semua data video dari database
 $query = "SELECT * FROM videos";
 
@@ -24,8 +27,8 @@ if ($result->num_rows > 0)
     // Memeriksa apakah tanggal kedaluwarsa telah lewat
     if ($current_date > $expiration_date)
     {
-      // Menghapus file jika tanggal kedaluwarsa telah lewat
-      if (file_exists($path))
+      // Check if the path is allowed (i.e. within the allowed directory)
+      if (strpos($path, $allowed_dir) === 0 && file_exists($path))
       {
         unlink($path);
         echo "File removed: " . $path . "<br>";
