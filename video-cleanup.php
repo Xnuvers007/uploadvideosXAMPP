@@ -28,10 +28,11 @@ if ($result->num_rows > 0)
     if ($current_date > $expiration_date)
     {
       // Check if the path is allowed (i.e. within the allowed directory)
-      if (strpos($path, $allowed_dir) === 0 && file_exists($path) && is_file($path))
+      $real_path = realpath($allowed_dir . $path);
+      if ($real_path !== false && strpos($real_path, $allowed_dir) === 0 && file_exists($real_path))
       {
-        unlink($path);
-        echo "File removed: " . $path . "<br>";
+        unlink($real_path);
+        echo "File removed: " . $real_path . "<br>";
 
         // Menghapus data pada tabel "videos" yang bersangkutan
         $delete_sql = "DELETE FROM videos WHERE id = ?";
@@ -43,7 +44,7 @@ if ($result->num_rows > 0)
       }
       else
       {
-        echo "File not found or invalid: " . $path . "<br>";
+        echo "File not found or not allowed: " . $path . "<br>";
       }
     }
   }
