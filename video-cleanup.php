@@ -28,7 +28,7 @@ if ($result->num_rows > 0)
     if ($current_date > $expiration_date)
     {
       // Check if the path is allowed (i.e. within the allowed directory)
-      if (strpos($path, $allowed_dir) === 0 && file_exists($path))
+      if (strpos($path, $allowed_dir) === 0 && file_exists($path) && is_file($path))
       {
         unlink($path);
         echo "File removed: " . $path . "<br>";
@@ -43,7 +43,7 @@ if ($result->num_rows > 0)
       }
       else
       {
-        echo "File not found: " . $path . "<br>";
+        echo "File not found or invalid: " . $path . "<br>";
       }
     }
   }
