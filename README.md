@@ -18,7 +18,7 @@ CONTENTS:
       $query = "INSERT INTO videos (name, path, expiration) VALUES ('$fileName', '$uploadPath', '$expiration')";
       mysqli_query($conn, $query);
 ```
-[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L117-L122)
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L128C1-L130C35)
 
 - 2. Fix Bug XSS
 ```     
@@ -27,7 +27,7 @@ CONTENTS:
       echo "Video berhasil diunggah dan akan dihapus dalam 7 hari.";
       echo "Video ada di: " . $uploadPath;
 ```
-[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L127)
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L137-L138)
 
 - 3. Fix Bug Path Traversal
 ```
@@ -37,7 +37,7 @@ CONTENTS:
       // Pindahkan file video yang diupload ke folder uploads
       move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath);
 ```
-[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L34-L60)
+[Fix Bug In Here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L38-L71)
 
 - 4. Fix Bug Use of Hardcoded Credentials
 ```
@@ -70,7 +70,7 @@ if (copy($uploadPath, $streamPath)) {
 ```
         if (copy($uploadPath, $streamPath)) {
 ```
-[fix bug here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L34-L38)
+[fix bug here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/upload.php#L38-L71)
 
 - 11. Fix Bug Xss
 ```
@@ -78,7 +78,7 @@ if (copy($uploadPath, $streamPath)) {
   <video controls autoplay>
     <source src="<?php echo 'streaming/' . $_GET['file']; ?>" type="video/mp4">
 ```
-[Fix Bug in here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/output/stream.php#L20-L21)
+[Fix Bug in here](https://github.com/Xnuvers007/uploadvideosXAMPP/blob/master/output/stream.php#L18-L23)
 
 # Upload Video With XAMPP, Mysql, HTML & PHP
 how to upload and stream video using xampp and mysql
