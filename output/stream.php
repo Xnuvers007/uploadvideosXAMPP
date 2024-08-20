@@ -17,12 +17,18 @@
 </head>
 <body>
   <video controls autoplay>
-    <?php $file = filter_var($_GET['file'], FILTER_SANITIZE_STRING); ?>
-    <source src="<?php echo 'streaming/' . $file; ?>" type="video/mp4">
+    <?php
+      $file = filter_input(INPUT_GET, 'file', FILTER_SANITIZE_STRING);
+      $safeFile = htmlspecialchars($file, ENT_QUOTES, 'UTF-8');
+      if (preg_match('/^[\w,\s-]+\.(mp4)$/i', $safeFile)) {
+          echo '<source src="streaming/' . $safeFile . '" type="video/mp4">';
+      } else {
+          echo 'Invalid file type.';
+      }
+    ?>
     Your browser does not support the video tag.
   </video>
   <script>
-    // Mengatur tinggi video sama dengan tinggi layar
     var video = document.getElementsByTagName('video')[0];
     video.style.height = window.innerHeight + 'px';
     window.addEventListener('resize', function() {
