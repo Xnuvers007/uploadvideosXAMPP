@@ -1,0 +1,39 @@
+name: auto commit
+
+on:
+  push:
+    branches: master
+  workflow_dispatch:
+  schedule:
+    - cron: '6 * * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - name: Install Node-Fetch
+      run: npm install
+    - name: Update README.md
+      run: node index.js > README.md
+    - name: Commit change & Push
+      run: |
+          git config user.name 'Xnuvers007'
+          git config user.email '${{ secrets.email }}'
+          git remote set-url origin https://Xnuvers007:${{ secrets.token_gh }}@github.com/Xnuvers007/reforestation.git
+      env:
+          GITHUB_TOKEN: ${{ secrets.token_gh }}
+    - name: Auto GIT
+      run: |
+          git status
+          git add .
+          git commit -am "Jangan Lupa Follow https://www.instagram.com/Indradwi.25"
+          git push
+      env:
+          GITHUB_TOKEN: ${{ secrets.token_gh }}
